@@ -51,7 +51,72 @@ const projects = [
       "https://placehold.co/600x400/EEE/31343C",
       "https://placehold.co/600x400/EEE/31343C",
     ]
-  }
+  },
+  {
+    title: "E-commerce Platform",
+    description: "Scalable backend for a major retail client. Handled 1M+ daily transactions.",
+    technologies: ["Node.js", "Express", "MongoDB", "Redis", "Docker"],
+    github: "https://github.com/yourusername/ecommerce-platform",
+    live: "https://example-ecommerce.com",
+    mainImage: "https://placehold.co/600x400/EEE/31343C",
+    images: [
+      "https://placehold.co/600x400/EEE/31343C",
+      "https://placehold.co/600x400/EEE/31343C",
+      "https://placehold.co/600x400/EEE/31343C",
+    ]
+  },
+  {
+    title: "E-commerce Platform",
+    description: "Scalable backend for a major retail client. Handled 1M+ daily transactions.",
+    technologies: ["Node.js", "Express", "MongoDB", "Redis", "Docker"],
+    github: "https://github.com/yourusername/ecommerce-platform",
+    live: "https://example-ecommerce.com",
+    mainImage: "https://placehold.co/600x400/EEE/31343C",
+    images: [
+      "https://placehold.co/600x400/EEE/31343C",
+      "https://placehold.co/600x400/EEE/31343C",
+      "https://placehold.co/600x400/EEE/31343C",
+    ]
+  },
+  {
+    title: "E-commerce Platform",
+    description: "Scalable backend for a major retail client. Handled 1M+ daily transactions.",
+    technologies: ["Node.js", "Express", "MongoDB", "Redis", "Docker"],
+    github: "https://github.com/yourusername/ecommerce-platform",
+    live: "https://example-ecommerce.com",
+    mainImage: "https://placehold.co/600x400/EEE/31343C",
+    images: [
+      "https://placehold.co/600x400/EEE/31343C",
+      "https://placehold.co/600x400/EEE/31343C",
+      "https://placehold.co/600x400/EEE/31343C",
+    ]
+  },
+  {
+    title: "E-commerce Platform",
+    description: "Scalable backend for a major retail client. Handled 1M+ daily transactions.",
+    technologies: ["Node.js", "Express", "MongoDB", "Redis", "Docker"],
+    github: "https://github.com/yourusername/ecommerce-platform",
+    live: "https://example-ecommerce.com",
+    mainImage: "https://placehold.co/600x400/EEE/31343C",
+    images: [
+      "https://placehold.co/600x400/EEE/31343C",
+      "https://placehold.co/600x400/EEE/31343C",
+      "https://placehold.co/600x400/EEE/31343C",
+    ]
+  },
+  {
+    title: "E-commerce Platform",
+    description: "Scalable backend for a major retail client. Handled 1M+ daily transactions.",
+    technologies: ["Node.js", "Express", "MongoDB", "Redis", "Docker"],
+    github: "https://github.com/yourusername/ecommerce-platform",
+    live: "https://example-ecommerce.com",
+    mainImage: "https://placehold.co/600x400/EEE/31343C",
+    images: [
+      "https://placehold.co/600x400/EEE/31343C",
+      "https://placehold.co/600x400/EEE/31343C",
+      "https://placehold.co/600x400/EEE/31343C",
+    ]
+  },
 ];
 
 const skills = [
@@ -153,6 +218,11 @@ export default function Portfolio() {
                   <FaLinkedinIn className="h-4 w-4" />
                 </a>
               </Button>
+              <Button variant="outline" size="icon" asChild>
+                <a href="https://linkedin.com/in/johndoe" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                  <FaWhatsapp className="h-4 w-4" />
+                </a>
+              </Button>
               <Button variant="outline" size="icon" onClick={toggleDarkMode}>
                 {isDarkMode ? <FaSun className="h-4 w-4" /> : <FaMoon className="h-4 w-4" />}
               </Button>
@@ -166,6 +236,7 @@ export default function Portfolio() {
               <TabsTrigger value="skills">Skills</TabsTrigger>
               <TabsTrigger value="contact">Contact</TabsTrigger>
             </TabsList>
+            
             <TabsContent value="projects">
               <motion.section
                 initial="hidden"
@@ -194,12 +265,6 @@ export default function Portfolio() {
                             <a href={project.github} target="_blank" rel="noopener noreferrer">
                               <FaGithub className="mr-2 h-4 w-4" />
                               GitHub
-                            </a>
-                          </Button>
-                          <Button variant="outline" size="sm" asChild>
-                            <a href={project.github} target="_blank" rel="noopener noreferrer">
-                              <FaWhatsapp className="mr-2 h-4 w-4" />
-                              Whatsapp
                             </a>
                           </Button>
                           <Button variant="outline" size="sm" asChild>
@@ -282,7 +347,7 @@ export default function Portfolio() {
               <motion.section initial="hidden" animate="visible" variants={fadeIn}>
                 <h2 className="text-2xl font-semibold mb-6">Professional Experience</h2>
                 {experiences.map((exp, index) => (
-                  <Card key={index}>
+                  <Card className='my-2' key={index}>
                     <CardHeader>
                       <CardTitle>{exp.title}</CardTitle>
                       <CardDescription>{exp.company} | {exp.period}</CardDescription>
@@ -295,60 +360,7 @@ export default function Portfolio() {
               </motion.section>
             </TabsContent>
 
-            <TabsContent value="projects">
-              <motion.section initial="hidden" animate="visible" variants={fadeIn}>
-                <h2 className="text-2xl font-semibold mb-6">Projects</h2>
-                <div className="grid gap-6 md:grid-cols-2">
-                  {projects.map((project, index) => (
-                    <Card key={index}>
-                      <CardHeader>
-                        <CardTitle>{project.title}</CardTitle>
-                        <CardDescription>{project.description}</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <img src={project.mainImage} alt={project.title} className="w-full h-48 object-cover rounded-md mb-4" />
-                        <div className="mb-4">
-                          {project.technologies.map((tech, i) => (
-                            <Badge key={i} variant="secondary" className="mr-2 mb-2">
-                              {tech}
-                            </Badge>
-                          ))}
-                        </div>
-                        <div className="flex space-x-4">
-                          <Button variant="outline" size="sm" asChild>
-                            <a href={project.github} target="_blank" rel="noopener noreferrer">
-                              <FaGithub className="mr-2 h-4 w-4" />
-                              GitHub
-                            </a>
-                          </Button>
-                          <Button variant="outline" size="sm" asChild>
-                            <a href={project.live} target="_blank" rel="noopener noreferrer">
-                              <FaExternalLinkAlt className="mr-2 h-4 w-4" />
-                              Live Demo
-                            </a>
-                          </Button>
-                          <Dialog>
-                            <DialogTrigger asChild>
-                              <Button variant="outline" size="sm">
-                                <FaRegImages className="mr-2 h-4 w-4" />
-                                View Images
-                              </Button>
-                            </DialogTrigger>
-                            <DialogContent className="max-w-3xl">
-                              <div className="grid grid-cols-2 gap-4">
-                                {project.images.map((img, i) => (
-                                  <img key={i} src={img} alt={`${project.title} screenshot ${i + 1}`} className="w-full h-auto rounded-md" />
-                                ))}
-                              </div>
-                            </DialogContent>
-                          </Dialog>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </motion.section>
-            </TabsContent>
+            
           </Tabs>
 
           <AnimatePresence>
