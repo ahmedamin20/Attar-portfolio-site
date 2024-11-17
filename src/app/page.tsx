@@ -296,7 +296,7 @@ export default function Portfolio() {
                   <Input type="text" placeholder="Your Name" className="mb-4" />
                   <Input type="email" placeholder="Your Email" className="mb-4" />
                   <Textarea placeholder="Your Message" className="mb-4" />
-                  <Button className="w-full" variant="primary">
+                  <Button className="w-full" variant={"secondary"}>
                     Send Message
                   </Button>
                 </div>
