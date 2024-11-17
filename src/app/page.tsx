@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, Suspense} from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -127,14 +127,13 @@ export default function Portfolio() {
 
   const toggleDarkMode = () => {
     setIsDarkMode((prev) => {
-      if(prev)
-        {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
+      if (prev) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
 
-        return !prev;
+      return !prev;
     });
   }
 
@@ -145,194 +144,183 @@ export default function Portfolio() {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-    <div className={`min-h-screen ${isDarkMode ? 'dark' : ''}`}>
-      <div className="bg-background text-foreground transition-colors duration-200 min-h-screen p-8">
-        <motion.header
-          className="max-w-4xl mx-auto mb-12 text-center"
-          initial="hidden"
-          animate={isVisible ? "visible" : "hidden"}
-          variants={fadeIn}
-        >
-          <h1 className="text-4xl font-bold mb-4">Mohamed Attar</h1>
-          <p className="text-xl text-muted-foreground mb-4">Backend Developer With Laravel And .NET</p>
-          <div className="flex justify-center space-x-4">
-            <Button variant="outline" size="icon" asChild>
-              <a href="mailto:mohammedattar0100020@gmail.com" aria-label="Email">
-                <Mail className="h-4 w-4" />
-              </a>
-            </Button>
-            <Button variant="outline" size="icon" asChild>
-              <a href="https://github.com/MohammedElattar" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <Github className="h-4 w-4" />
-              </a>
-            </Button>
-            <Button variant="outline" size="icon" asChild>
-              <a href="https://linkedin.com/in/johndoe" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                <Linkedin className="h-4 w-4" />
-              </a>
-            </Button>
-            <Button variant="outline" size="icon" onClick={toggleDarkMode}>
-              {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </Button>
-          </div>
-        </motion.header>
-
-        <Tabs value={activeTab} onValueChange={handleTabChange} defaultValue="experience" className="max-w-4xl mx-auto">
-          <TabsList className="grid w-full grid-cols-4 mb-8">
-            <TabsTrigger value="experience">Experience</TabsTrigger>
-            <TabsTrigger value="projects">Projects</TabsTrigger>
-            <TabsTrigger value="skills">Skills</TabsTrigger>
-            <TabsTrigger value="contact">Contact</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="experience">
-            <motion.section
-              initial="hidden"
-              animate={isVisible ? "visible" : "hidden"}
-              variants={fadeIn}
-            >
-              <h2 className="text-2xl font-semibold mb-6">Professional Experience</h2>
-              <div className="space-y-6">
-                {experiences.map((exp, index) => (
-                  <Card key={index}>
-                    <CardHeader>
-                      <CardTitle>{exp.title}</CardTitle>
-                      <CardDescription>{exp.company} | {exp.period}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p>{exp.description}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </motion.section>
-          </TabsContent>
-
-          <TabsContent value="projects">
-            <motion.section
-              initial="hidden"
-              animate={isVisible ? "visible" : "hidden"}
-              variants={fadeIn}
-            >
-              <h2 className="text-2xl font-semibold mb-6">Projects</h2>
-              <div className="grid gap-6 md:grid-cols-2">
-                {projects.map((project, index) => (
-                  <Card key={index}>
-                    <CardHeader>
-                      <CardTitle>{project.title}</CardTitle>
-                      <CardDescription>{project.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <img src={project.mainImage} alt={project.title} className="w-full h-48 object-cover rounded-md mb-4" />
-                      <div className="mb-4">
-                        {project.technologies.map((tech, i) => (
-                          <Badge key={i} variant="secondary" className="mr-2 mb-2">
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-                      <div className="flex space-x-4">
-                        <Button variant="outline" size="sm" asChild>
-                          <a href={project.github} target="_blank" rel="noopener noreferrer">
-                            <Github className="mr-2 h-4 w-4" />
-                            GitHub
-                          </a>
-                        </Button>
-                        <Button variant="outline" size="sm" asChild>
-                          <a href={project.live} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="mr-2 h-4 w-4" />
-                            Live Demo
-                          </a>
-                        </Button>
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button variant="outline" size="sm">
-                              <ImageIcon className="mr-2 h-4 w-4" />
-                              View Images
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent className="max-w-3xl">
-                            <div className="grid grid-cols-2 gap-4">
-                              {project.images.map((img, i) => (
-                                <img key={i} src={img} alt={`${project.title} screenshot ${i + 1}`} className="w-full h-auto rounded-md" />
-                              ))}
-                            </div>
-                          </DialogContent>
-                        </Dialog>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </motion.section>
-          </TabsContent>
-
-          <TabsContent value="skills">
-            <motion.section
-              initial="hidden"
-              animate={isVisible ? "visible" : "hidden"}
-              variants={fadeIn}
-            >
-              <h2 className="text-2xl font-semibold mb-6">Skills</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-                {skills.map((skill, index) => (
-                  <div key={index} className="flex flex-col items-center">
-                    <img src={skill.imageUrl} alt={skill.name} className="w-16 h-16 mb-2" />
-                    <p className="text-lg font-medium">{skill.name}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.section>
-          </TabsContent>
-
-
-          <TabsContent value="contact">
-            <motion.section
-              initial="hidden"
-              animate={isVisible ? "visible" : "hidden"}
-              variants={fadeIn}
-            >
-              <h2 className="text-2xl font-semibold mb-6">Contact Me</h2>
-              <Card>
-                <CardContent className="p-6">
-                  <form className="space-y-4">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-foreground">Name</label>
-                      <Input id="name" placeholder="Your Name" />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-foreground">Email</label>
-                      <Input id="email" type="email" placeholder="your@email.com" />
-                    </div>
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-foreground">Message</label>
-                      <Textarea id="message" placeholder="Your message here..." />
-                    </div>
-                    <Button type="submit">Send Message</Button>
-                  </form>
-                </CardContent>
-              </Card>
-            </motion.section>
-          </TabsContent>
-        </Tabs>
-
-        <AnimatePresence>
-          {showScrollTop && (
-            <motion.div
-              className="fixed bottom-8 right-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Button variant="outline" size="icon" onClick={scrollToTop}>
-                <ArrowUp className="h-4 w-4" />
+      <div className={`min-h-screen ${isDarkMode ? 'dark' : ''}`}>
+        <div className="bg-background text-foreground transition-colors duration-200 min-h-screen p-8">
+          <motion.header
+            className="max-w-4xl mx-auto mb-12 text-center"
+            initial="hidden"
+            animate={isVisible ? "visible" : "hidden"}
+            variants={fadeIn}
+          >
+            <h1 className="text-4xl font-bold mb-4">Mohamed Attar</h1>
+            <p className="text-xl text-muted-foreground mb-4">Backend Developer With Laravel And .NET</p>
+            <div className="flex justify-center space-x-4">
+              <Button variant="outline" size="icon" asChild>
+                <a href="mailto:mohammedattar0100020@gmail.com" aria-label="Email">
+                  <Mail className="h-4 w-4" />
+                </a>
               </Button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <Button variant="outline" size="icon" asChild>
+                <a href="https://github.com/MohammedElattar" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                  <Github className="h-4 w-4" />
+                </a>
+              </Button>
+              <Button variant="outline" size="icon" asChild>
+                <a href="https://linkedin.com/in/johndoe" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                  <Linkedin className="h-4 w-4" />
+                </a>
+              </Button>
+              <Button variant="outline" size="icon" onClick={toggleDarkMode}>
+                {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              </Button>
+            </div>
+          </motion.header>
+
+          <Tabs value={activeTab} onValueChange={handleTabChange} defaultValue="experience" className="max-w-4xl mx-auto">
+            <TabsList className="grid w-full grid-cols-4 mb-8">
+              <TabsTrigger value="experience">Experience</TabsTrigger>
+              <TabsTrigger value="projects">Projects</TabsTrigger>
+              <TabsTrigger value="skills">Skills</TabsTrigger>
+              <TabsTrigger value="contact">Contact</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="experience">
+              <motion.section
+                initial="hidden"
+                animate={isVisible ? "visible" : "hidden"}
+                variants={fadeIn}
+              >
+                <h2 className="text-2xl font-semibold mb-6">Professional Experience</h2>
+                <div className="space-y-6">
+                  {experiences.map((exp, index) => (
+                    <Card key={index}>
+                      <CardHeader>
+                        <CardTitle>{exp.title}</CardTitle>
+                        <CardDescription>{exp.company} | {exp.period}</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p>{exp.description}</p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </motion.section>
+            </TabsContent>
+
+            <TabsContent value="projects">
+              <motion.section
+                initial="hidden"
+                animate={isVisible ? "visible" : "hidden"}
+                variants={fadeIn}
+              >
+                <h2 className="text-2xl font-semibold mb-6">Projects</h2>
+                <div className="grid gap-6 md:grid-cols-2">
+                  {projects.map((project, index) => (
+                    <Card key={index}>
+                      <CardHeader>
+                        <CardTitle>{project.title}</CardTitle>
+                        <CardDescription>{project.description}</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <img src={project.mainImage} alt={project.title} className="w-full h-48 object-cover rounded-md mb-4" />
+                        <div className="mb-4">
+                          {project.technologies.map((tech, i) => (
+                            <Badge key={i} variant="secondary" className="mr-2 mb-2">
+                              {tech}
+                            </Badge>
+                          ))}
+                        </div>
+                        <div className="flex space-x-4">
+                          <Button variant="outline" size="sm" asChild>
+                            <a href={project.github} target="_blank" rel="noopener noreferrer">
+                              <Github className="mr-2 h-4 w-4" />
+                              GitHub
+                            </a>
+                          </Button>
+                          <Button variant="outline" size="sm" asChild>
+                            <a href={project.live} target="_blank" rel="noopener noreferrer">
+                              <ExternalLink className="mr-2 h-4 w-4" />
+                              Live Demo
+                            </a>
+                          </Button>
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button variant="outline" size="sm">
+                                <ImageIcon className="mr-2 h-4 w-4" />
+                                View Images
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent className="max-w-3xl">
+                              <div className="grid grid-cols-2 gap-4">
+                                {project.images.map((img, i) => (
+                                  <img key={i} src={img} alt={`${project.title} screenshot ${i + 1}`} className="w-full h-auto rounded-md" />
+                                ))}
+                              </div>
+                            </DialogContent>
+                          </Dialog>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </motion.section>
+            </TabsContent>
+
+            <TabsContent value="skills">
+              <motion.section
+                initial="hidden"
+                animate={isVisible ? "visible" : "hidden"}
+                variants={fadeIn}
+              >
+                <h2 className="text-2xl font-semibold mb-6">Skills</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+                  {skills.map((skill, index) => (
+                    <div key={index} className="flex flex-col items-center">
+                      <img src={skill.imageUrl} alt={skill.name} className="w-16 h-16 mb-2" />
+                      <p className="text-lg font-medium">{skill.name}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.section>
+            </TabsContent>
+
+
+            <TabsContent value="contact">
+              <motion.section
+                initial="hidden"
+                animate={isVisible ? "visible" : "hidden"}
+                variants={fadeIn}
+              >
+                <h2 className="text-2xl font-semibold mb-6">Contact Me</h2>
+                <div className="space-y-4 max-w-lg mx-auto">
+                  <Input type="text" placeholder="Your Name" className="mb-4" />
+                  <Input type="email" placeholder="Your Email" className="mb-4" />
+                  <Textarea placeholder="Your Message" className="mb-4" />
+                  <Button className="w-full" variant="primary">
+                    Send Message
+                  </Button>
+                </div>
+              </motion.section>
+            </TabsContent>
+          </Tabs>
+
+          <AnimatePresence>
+            {showScrollTop && (
+              <motion.div
+                className="fixed bottom-8 right-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Button variant="outline" size="icon" onClick={scrollToTop}>
+                  <ArrowUp className="h-4 w-4" />
+                </Button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
-    </div>
     </Suspense>
   )
 }
