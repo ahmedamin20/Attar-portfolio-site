@@ -1,16 +1,27 @@
-'use client'
+'use client';
 
-import { useState, useEffect, Suspense } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Github, ExternalLink, Mail, Linkedin, ArrowUp, Moon, Sun, ImageIcon } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { useState, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  FaGithub,
+  FaExternalLinkAlt,
+  FaEnvelope,
+  FaLinkedinIn,
+  FaArrowUp,
+  FaMoon,
+  FaSun,
+  FaRegImages,
+  FaExternalLinkSquareAlt,
+  FaWhatsapp
+} from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const experiences = [
   {
@@ -25,7 +36,7 @@ const experiences = [
     period: "2018 - 2020",
     description: "Developed RESTful APIs for financial data processing. Optimized database queries, improving response times by 40%. Implemented robust error handling and logging systems."
   }
-]
+];
 
 const projects = [
   {
@@ -40,71 +51,21 @@ const projects = [
       "https://placehold.co/600x400/EEE/31343C",
       "https://placehold.co/600x400/EEE/31343C",
     ]
-  },
-  {
-    title: "Data Analytics Pipeline",
-    description: "Real-time data processing pipeline for IoT devices. Processed 5TB of data daily.",
-    technologies: ["Python", "Apache Kafka", "Elasticsearch", "Docker"],
-    github: "https://github.com/yourusername/data-pipeline",
-    live: "https://example-analytics.com",
-    mainImage: "https://placehold.co/600x400/EEE/31343C",
-    images: [
-      "https://placehold.co/600x400/EEE/31343C",
-      "https://placehold.co/600x400/EEE/31343C",
-      "https://placehold.co/600x400/EEE/31343C",
-    ]
-  },
-  {
-    title: "Microservices Architecture",
-    description: "Designed and implemented a microservices-based backend for a social media platform.",
-    technologies: ["Go", "gRPC", "PostgreSQL", "RabbitMQ", "Kubernetes"],
-    github: "https://github.com/yourusername/social-media-microservices",
-    live: "https://example-social.com",
-    mainImage: "https://placehold.co/600x400/EEE/31343C",
-    images: [
-      "https://placehold.co/600x400/EEE/31343C",
-      "https://placehold.co/600x400/EEE/31343C",
-      "https://placehold.co/600x400/EEE/31343C",
-    ]
   }
-]
+];
 
-interface SkillInterface {
-  name: string,
-  imageUrl: string
-}
-
-const skills: SkillInterface[] = [
+const skills = [
   { name: "JavaScript", imageUrl: "https://placehold.co/300x300/EEE/31343C" },
-  { name: "Python", imageUrl: "/placeholder.svg?height=100&width=100" },
-  { name: "Node.js", imageUrl: "/placeholder.svg?height=100&width=100" },
-  { name: "Docker", imageUrl: "/placeholder.svg?height=100&width=100" },
-  { name: "MongoDB", imageUrl: "/placeholder.svg?height=100&width=100" },
-  { name: "SQL", imageUrl: "/placeholder.svg?height=100&width=100" },
-  { name: "AWS", imageUrl: "/placeholder.svg?height=100&width=100" },
-  { name: "Kubernetes", imageUrl: "/placeholder.svg?height=100&width=100" },
-]
+  { name: "Python", imageUrl: "/placeholder.svg?height=100&width=100" }
+];
 
 export default function Portfolio() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const [activeTab, setActiveTab] = useState<string>('experience')
-  const [isVisible, setIsVisible] = useState(true)
-  const [isDarkMode, setIsDarkMode] = useState(true)
-  const [showScrollTop, setShowScrollTop] = useState(false)
-
-  useEffect(() => {
-    const tabFromURL = searchParams.get('tab')
-    if (tabFromURL) {
-      setActiveTab(tabFromURL)
-    }
-  }, [searchParams])
-
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab)
-    router.push(`?tab=${tab}`)
-  }
-
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [activeTab, setActiveTab] = useState<string>('experience');
+  const [isVisible, setIsVisible] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   useEffect(() => {
     setIsVisible(true)
     const toggleVisibility = () => {
@@ -117,30 +78,52 @@ export default function Portfolio() {
     window.addEventListener('scroll', toggleVisibility)
     return () => window.removeEventListener('scroll', toggleVisibility)
   }, [])
+  useEffect(() => {
+    const tabFromURL = searchParams.get('tab');
+    if (tabFromURL) {
+      setActiveTab(tabFromURL);
+    }
+  }, [searchParams]);
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    router.push(`?tab=${tab}`);
+  };
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+    window.addEventListener('scroll', toggleVisibility);
+    return () => window.removeEventListener('scroll', toggleVisibility);
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
-    })
-  }
+    });
+  };
 
   const toggleDarkMode = () => {
     setIsDarkMode((prev) => {
-      if (prev) {
+      if (!prev) {
         document.documentElement.classList.add('dark');
       } else {
         document.documentElement.classList.remove('dark');
       }
-
       return !prev;
     });
-  }
+  };
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-  }
+  };
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -157,21 +140,21 @@ export default function Portfolio() {
             <div className="flex justify-center space-x-4">
               <Button variant="outline" size="icon" asChild>
                 <a href="mailto:mohammedattar0100020@gmail.com" aria-label="Email">
-                  <Mail className="h-4 w-4" />
+                  <FaEnvelope className="h-4 w-4" />
                 </a>
               </Button>
               <Button variant="outline" size="icon" asChild>
                 <a href="https://github.com/MohammedElattar" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                  <Github className="h-4 w-4" />
+                  <FaGithub className="h-4 w-4" />
                 </a>
               </Button>
               <Button variant="outline" size="icon" asChild>
                 <a href="https://linkedin.com/in/johndoe" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                  <Linkedin className="h-4 w-4" />
+                  <FaLinkedinIn className="h-4 w-4" />
                 </a>
               </Button>
               <Button variant="outline" size="icon" onClick={toggleDarkMode}>
-                {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                {isDarkMode ? <FaSun className="h-4 w-4" /> : <FaMoon className="h-4 w-4" />}
               </Button>
             </div>
           </motion.header>
@@ -183,30 +166,6 @@ export default function Portfolio() {
               <TabsTrigger value="skills">Skills</TabsTrigger>
               <TabsTrigger value="contact">Contact</TabsTrigger>
             </TabsList>
-
-            <TabsContent value="experience">
-              <motion.section
-                initial="hidden"
-                animate={isVisible ? "visible" : "hidden"}
-                variants={fadeIn}
-              >
-                <h2 className="text-2xl font-semibold mb-6">Professional Experience</h2>
-                <div className="space-y-6">
-                  {experiences.map((exp, index) => (
-                    <Card key={index}>
-                      <CardHeader>
-                        <CardTitle>{exp.title}</CardTitle>
-                        <CardDescription>{exp.company} | {exp.period}</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p>{exp.description}</p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </motion.section>
-            </TabsContent>
-
             <TabsContent value="projects">
               <motion.section
                 initial="hidden"
@@ -233,20 +192,26 @@ export default function Portfolio() {
                         <div className="flex space-x-4">
                           <Button variant="outline" size="sm" asChild>
                             <a href={project.github} target="_blank" rel="noopener noreferrer">
-                              <Github className="mr-2 h-4 w-4" />
+                              <FaGithub className="mr-2 h-4 w-4" />
                               GitHub
                             </a>
                           </Button>
                           <Button variant="outline" size="sm" asChild>
+                            <a href={project.github} target="_blank" rel="noopener noreferrer">
+                              <FaWhatsapp className="mr-2 h-4 w-4" />
+                              Whatsapp
+                            </a>
+                          </Button>
+                          <Button variant="outline" size="sm" asChild>
                             <a href={project.live} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="mr-2 h-4 w-4" />
+                              <FaExternalLinkSquareAlt className="mr-2 h-4 w-4" />
                               Live Demo
                             </a>
                           </Button>
                           <Dialog>
                             <DialogTrigger asChild>
                               <Button variant="outline" size="sm">
-                                <ImageIcon className="mr-2 h-4 w-4" />
+                                <FaRegImages className="mr-2 h-4 w-4" />
                                 View Images
                               </Button>
                             </DialogTrigger>
@@ -292,13 +257,95 @@ export default function Portfolio() {
                 variants={fadeIn}
               >
                 <h2 className="text-2xl font-semibold mb-6">Contact Me</h2>
-                <div className="space-y-4 max-w-lg mx-auto">
-                  <Input type="text" placeholder="Your Name" className="mb-4" />
-                  <Input type="email" placeholder="Your Email" className="mb-4" />
-                  <Textarea placeholder="Your Message" className="mb-4" />
-                  <Button className="w-full" variant={"secondary"}>
-                    Send Message
-                  </Button>
+                <Card>
+                  <CardContent className="p-6">
+                    <form className="space-y-4">
+                      <div>
+                        <label htmlFor="name" className="block my-1 text-sm font-medium text-foreground">Name</label>
+                        <Input id="name" placeholder="Your Name" />
+                      </div>
+                      <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-foreground">Email</label>
+                        <Input id="email" type="email" placeholder="your@email.com" />
+                      </div>
+                      <div>
+                        <label htmlFor="message" className="block text-sm font-medium text-foreground">Message</label>
+                        <Textarea id="message" placeholder="Your message here..." />
+                      </div>
+                      <Button type="submit">Send Message</Button>
+                    </form>
+                  </CardContent>
+                </Card>
+              </motion.section>
+            </TabsContent>
+            <TabsContent value="experience">
+              <motion.section initial="hidden" animate="visible" variants={fadeIn}>
+                <h2 className="text-2xl font-semibold mb-6">Professional Experience</h2>
+                {experiences.map((exp, index) => (
+                  <Card key={index}>
+                    <CardHeader>
+                      <CardTitle>{exp.title}</CardTitle>
+                      <CardDescription>{exp.company} | {exp.period}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p>{exp.description}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </motion.section>
+            </TabsContent>
+
+            <TabsContent value="projects">
+              <motion.section initial="hidden" animate="visible" variants={fadeIn}>
+                <h2 className="text-2xl font-semibold mb-6">Projects</h2>
+                <div className="grid gap-6 md:grid-cols-2">
+                  {projects.map((project, index) => (
+                    <Card key={index}>
+                      <CardHeader>
+                        <CardTitle>{project.title}</CardTitle>
+                        <CardDescription>{project.description}</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <img src={project.mainImage} alt={project.title} className="w-full h-48 object-cover rounded-md mb-4" />
+                        <div className="mb-4">
+                          {project.technologies.map((tech, i) => (
+                            <Badge key={i} variant="secondary" className="mr-2 mb-2">
+                              {tech}
+                            </Badge>
+                          ))}
+                        </div>
+                        <div className="flex space-x-4">
+                          <Button variant="outline" size="sm" asChild>
+                            <a href={project.github} target="_blank" rel="noopener noreferrer">
+                              <FaGithub className="mr-2 h-4 w-4" />
+                              GitHub
+                            </a>
+                          </Button>
+                          <Button variant="outline" size="sm" asChild>
+                            <a href={project.live} target="_blank" rel="noopener noreferrer">
+                              <FaExternalLinkAlt className="mr-2 h-4 w-4" />
+                              Live Demo
+                            </a>
+                          </Button>
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button variant="outline" size="sm">
+                                <FaRegImages className="mr-2 h-4 w-4" />
+                                View Images
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent className="max-w-3xl">
+                              <div className="grid grid-cols-2 gap-4">
+                                {project.images.map((img, i) => (
+                                  <img key={i} src={img} alt={`${project.title} screenshot ${i + 1}`} className="w-full h-auto rounded-md" />
+                                ))}
+                              </div>
+                            </DialogContent>
+                          </Dialog>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
               </motion.section>
             </TabsContent>
@@ -314,7 +361,7 @@ export default function Portfolio() {
                 transition={{ duration: 0.2 }}
               >
                 <Button variant="outline" size="icon" onClick={scrollToTop}>
-                  <ArrowUp className="h-4 w-4" />
+                  <FaArrowUp className="h-4 w-4" />
                 </Button>
               </motion.div>
             )}
@@ -322,5 +369,5 @@ export default function Portfolio() {
         </div>
       </div>
     </Suspense>
-  )
+  );
 }
