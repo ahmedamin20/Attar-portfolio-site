@@ -10,7 +10,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
   FaGithub,
-  FaExternalLinkAlt,
   FaEnvelope,
   FaLinkedinIn,
   FaArrowUp,
