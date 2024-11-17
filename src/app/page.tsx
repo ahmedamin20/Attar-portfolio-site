@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense} from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -144,6 +144,7 @@ export default function Portfolio() {
   }
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className={`min-h-screen ${isDarkMode ? 'dark' : ''}`}>
       <div className="bg-background text-foreground transition-colors duration-200 min-h-screen p-8">
         <motion.header
@@ -332,5 +333,6 @@ export default function Portfolio() {
         </AnimatePresence>
       </div>
     </div>
+    </Suspense>
   )
 }
